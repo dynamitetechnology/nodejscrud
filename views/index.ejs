@@ -199,7 +199,7 @@
       if(res.status==="200"){
         swal("Good job!", "Successfully Created", "success").then(function(){location.reload()});
       }else{
-        swal("Good job!", "Something went wrong", "error").then(function(){location.reload()});
+        swal("Fail!", "Something went wrong", "error").then(function(){location.reload()});
       }
   },
   dataType: "json"
@@ -274,7 +274,7 @@ $(".updateNewUser").on('click',function(){
       if(res.status==="200"){
         swal("Good job!", "Update Successfully", "success").then(function(){location.reload()});
       }else{
-        swal("Good job!", "Something went wrong", "error").then(function(){location.reload()});
+        swal("Fail!", "Something went wrong", "error").then(function(){location.reload()});
       }
   },
   dataType: "json"
@@ -299,7 +299,7 @@ $(".updateNewUser").on('click',function(){
       if(res.status==="200"){
         swal("Good job!", "Deleted Successfully", "success").then(function(){location.reload()});
       }else{
-        swal("Good job!", "Something went wrong", "error").then(function(){location.reload()});
+        swal("Fail!", "Something went wrong", "error").then(function(){location.reload()});
       }
   },
   dataType: "json"
