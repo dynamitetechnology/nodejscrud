@@ -86,13 +86,13 @@ module.exports = {
             let errors = validationResult(req);
 
            // console.log('id------------->', req.body.id)
-            console.log('id------------->', req.query.id)
+            console.log('id------------->', req.body.id)
 
 
             let singleUser = await new Promise(resolve => {
                 const statement = {
                     text: " select id, fname, lname, email, phone from users where  id = $1 ",
-                    values: [req.query.id]
+                    values: [req.body.id]
                 }
                 db.query(statement, async function (err, obj) {
                     if (err) throw err;
@@ -179,28 +179,17 @@ module.exports = {
 
 
     getSearchData:(req,res,next) =>{
-
-
         ;(async()=>{
-
-
-
             let db = req.app.locals.db;
             let redisDb = req.app.locals.redisdb;
             let loginToken = req.cookies.token;
             let errors = validationResult(req);
-
-
             console.log('searchvalue------------->', req.body.searchvalue)
- 
-
-
             let deleteUser = await new Promise(resolve => {
                 const statement = {
                     text: "SELECT * FROM users WHERE fname = $1 ",
                     values: [req.body.searchvalue]
                 }
-
                 console.log(statement)
 
                 db.query(statement, async function (err, obj) {
@@ -209,13 +198,8 @@ module.exports = {
                     return resolve(resultSet);
                 })
             })
-
             console.log(deleteUser)
             res.json(deleteUser)
-
-
-
-
         })()
 
     }

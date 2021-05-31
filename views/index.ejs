@@ -216,13 +216,13 @@
 //GET USERDATA
     $("#userTable").on('click','#getuserData',function(){
 let id =  $(this).attr("data-id")
-        console.log('id--------',id)
+        console.log('id--->>>>>',id)
 
         $.ajax({
   type: "POST",
   url: "/api/singlepeople",
   data: {
-    id: id
+    id: $(this).attr("data-id")
   },
   success: function(res){
       console.log(res)
