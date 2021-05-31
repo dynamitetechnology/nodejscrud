@@ -18,4 +18,7 @@ router.post('/api/singlepeople', controller.getPeople);
 router.post('/api/updatepeople', controller.updatepeople);
 
 router.post('/api/delete', controller.delete);
+
+router.post('/api/searchuser',controller.getSearchData)
+
 module.exports = router;

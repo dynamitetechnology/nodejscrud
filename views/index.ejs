@@ -34,6 +34,12 @@
     </nav>
 
     <div class="container-fluid">
+
+      <div class="form-group col-md-3 mt-5">
+        <label for="exampleInputEmail1">Search</label>
+        <input type="email" class="form-control rounded-0" id="searchbox">
+      </div>
+
         <table class="table table-striped mt-5 table-bordered" id="userTable">
             <thead>
                 <tr class="bg-dark text-light">
@@ -287,7 +293,6 @@ $(".updateNewUser").on('click',function(){
    $("#userTable").on('click','#deleteuser',function(){
     let id =  $(this).attr("data-id")
         console.log('id--------',id)
-
         $.ajax({
             type: "POST",
             url: "/api/delete",
@@ -304,6 +309,64 @@ $(".updateNewUser").on('click',function(){
   },
   dataType: "json"
 });
+    })
+
+
+
+    $("#searchbox").on('keyup',function(){
+      let searchvalue = $("#searchbox").val()
+      console.log('Search Value',searchvalue)
+      $.ajax({
+  type: "POST",
+  url: "/api/searchuser",
+  data: {
+    searchvalue:searchvalue
+  },
+  success: function(response){
+console.log('RESP==>',response)
+
+let singleRecord = `
+<table >
+            <thead>
+                <tr class="bg-dark text-light">
+                    <th>Sr</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>`;
+
+response.forEach(function(data){
+  console.log(data)
+  singleRecord +=`
+  <tr>
+                    <td>${data.id}</td>
+                    <td>${data.fname}</td>
+                    <td>${data.lname}</td>
+                    <td>${data.email}</td>
+                    <td>${data.phone}</td>
+                    <td><a data-id="${data.id}" id="getuserDataedit"><i class="bi bi-pencil-square"></i></a>
+                        <a data-id="${data.id}" id="getuserData"><i class="bi bi-eye"></i></a>
+                        <a data-id="${data.id}" id="deleteuser"><i class="bi bi-x"></i></a>
+                    </td>
+                </tr>
+  `;
+})
+
+
+singleRecord +=` </tbody>
+          </table>`;
+
+
+$("#userTable").html(singleRecord)
+
+  },
+  dataType: "json"
+});
+
     })
 
 

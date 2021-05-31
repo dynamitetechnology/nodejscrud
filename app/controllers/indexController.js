@@ -85,13 +85,14 @@ module.exports = {
             let loginToken = req.cookies.token;
             let errors = validationResult(req);
 
-            console.log('id------------->', req.body.id)
+           // console.log('id------------->', req.body.id)
+            console.log('id------------->', req.query.id)
 
 
             let singleUser = await new Promise(resolve => {
                 const statement = {
                     text: " select id, fname, lname, email, phone from users where  id = $1 ",
-                    values: [req.body.id]
+                    values: [req.query.id]
                 }
                 db.query(statement, async function (err, obj) {
                     if (err) throw err;
@@ -175,6 +176,49 @@ module.exports = {
            
         })()
     },
+
+
+    getSearchData:(req,res,next) =>{
+
+
+        ;(async()=>{
+
+
+
+            let db = req.app.locals.db;
+            let redisDb = req.app.locals.redisdb;
+            let loginToken = req.cookies.token;
+            let errors = validationResult(req);
+
+
+            console.log('searchvalue------------->', req.body.searchvalue)
+ 
+
+
+            let deleteUser = await new Promise(resolve => {
+                const statement = {
+                    text: "SELECT * FROM users WHERE fname = $1 ",
+                    values: [req.body.searchvalue]
+                }
+
+                console.log(statement)
+
+                db.query(statement, async function (err, obj) {
+                    if (err) throw err;
+                    let resultSet = await obj.rows
+                    return resolve(resultSet);
+                })
+            })
+
+            console.log(deleteUser)
+            res.json(deleteUser)
+
+
+
+
+        })()
+
+    }
 
 
 }
