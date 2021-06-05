@@ -202,6 +202,33 @@ module.exports = {
             res.json(deleteUser)
         })()
 
+    },
+
+    getAllPeople:(req,res, next)=>{
+        ;(async()=>{
+
+            console.log(req.body.id)
+
+            let db = req.app.locals.db;
+            let redisDb = req.app.locals.redisdb;
+            let loginToken = req.cookies.token;
+            let errors = validationResult(req);
+            let getAlluser = await new Promise(resolve => {
+                const statement = {
+                    text: "SELECT * FROM users where id = $1 ",
+                    values: [req.body.id]
+                }
+            
+                db.query(statement, async function (err, obj) {
+                    if (err) throw err;
+                    let resultSet = await obj.rows
+                    return resolve(resultSet);
+                })
+            })
+            console.log(getAlluser)
+            res.json(getAlluser)
+        })()
+
     }
 
 

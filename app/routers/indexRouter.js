@@ -21,4 +21,6 @@ router.post('/api/delete', controller.delete);
 
 router.post('/api/searchuser',controller.getSearchData)
 
+router.post('/api/allpeople',controller.getAllPeople)
+
 module.exports = router;

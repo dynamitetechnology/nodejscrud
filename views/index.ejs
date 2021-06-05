@@ -311,8 +311,6 @@ $(".updateNewUser").on('click',function(){
 });
     })
 
-
-
     $("#searchbox").on('keyup',function(){
       let searchvalue = $("#searchbox").val()
       console.log('Search Value',searchvalue)
@@ -355,22 +353,15 @@ response.forEach(function(data){
                 </tr>
   `;
 })
-
-
 singleRecord +=` </tbody>
           </table>`;
 
-
 $("#userTable").html(singleRecord)
-
   },
   dataType: "json"
 });
 
     })
-
-
-
   })
 </script>
   </body>
